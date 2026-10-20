@@ -1,0 +1,16 @@
+.form {
+  display: grid;
+  gap: 16px;
+}
+.form > button { justify-self: start; }
+
+.passwordRow {
+  display: flex;
+  gap: 8px;
+}
+.passwordRow > button { height: 42px; width: 42px; }
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13.5px;
+}

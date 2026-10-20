@@ -1,0 +1,43 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+  gap: 40px clamp(32px, 6vw, 112px);
+  margin: 0 var(--gutter);
+  padding: clamp(40px, 5vw, 72px) 0 var(--section-space);
+  border-top: 1px solid var(--color-line);
+}
+
+/* Stays in view beside the text as it scrolls. */
+.contents {
+  position: sticky;
+  top: 32px;
+  align-self: start;
+}
+
+.contentsTitle {
+  margin-bottom: 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-ink-muted);
+}
+
+.contents ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contents a {
+  font-size: 14.5px;
+  line-height: 1.4;
+  color: var(--color-ink-muted);
+  transition: color .2s;
+}
+.contents a:hover { color: var(--color-ink); }
+
+@media (max-width: 859.98px) {
+  .layout { grid-template-columns: 1fr; }
+  .contents { display: none; }
+}

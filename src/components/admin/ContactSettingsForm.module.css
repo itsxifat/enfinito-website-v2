@@ -1,0 +1,56 @@
+.form {
+  display: grid;
+  gap: 24px;
+  max-width: 880px;
+}
+
+.stack {
+  display: grid;
+  gap: 20px;
+}
+
+.addresses {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.address {
+  display: grid;
+  gap: 14px;
+  padding: 20px 22px 24px;
+}
+.address + .address { border-top: 1px solid var(--a-line); }
+
+.addressHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.addressIndex {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--a-muted);
+}
+
+.addressActions {
+  display: flex;
+  gap: 2px;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.view {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13.5px;
+  font-weight: 500;
+}

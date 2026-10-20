@@ -1,0 +1,37 @@
+.form {
+  display: grid;
+  gap: 18px;
+}
+
+.input {
+  height: 48px;
+  font-size: 15px;
+}
+
+.passwordWrap { position: relative; }
+.passwordWrap .input { padding-right: 48px; }
+
+.reveal {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--a-faint);
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+.reveal:hover { background: var(--a-hover); color: var(--a-text); }
+.reveal:focus-visible { outline: none; box-shadow: var(--a-ring); }
+
+.submit {
+  width: 100%;
+  height: 48px;
+  margin-top: 6px;
+  font-size: 15px;
+}

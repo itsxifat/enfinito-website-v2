@@ -1,0 +1,57 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+
+.wide { grid-column: 1 / -1; }
+
+.sessions {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.session {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 22px;
+}
+.session + .session { border-top: 1px solid var(--a-line); }
+
+.deviceIcon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--a-hover);
+  color: var(--a-muted);
+}
+
+.sessionText {
+  display: grid;
+  min-width: 0;
+}
+
+.device {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+}
+
+.sessionMeta {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  color: var(--a-muted);
+}
+
+@media (max-width: 960px) {
+  .grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,205 @@
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat {
+  display: grid;
+  gap: 2px;
+  padding: 20px;
+  border: 1px solid var(--a-border);
+  border-radius: var(--a-radius);
+  background: var(--a-surface);
+  box-shadow: var(--a-shadow);
+  color: var(--a-text);
+  transition: border-color .15s, box-shadow .15s, transform .2s var(--ease-out);
+}
+.stat:hover {
+  border-color: var(--a-border-strong);
+  color: var(--a-text);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px -8px rgba(13, 17, 28, .12);
+}
+
+.statIcon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  margin-bottom: 14px;
+  border-radius: 10px;
+  background: var(--a-hover);
+  color: var(--a-muted);
+}
+.stat[data-accent] .statIcon {
+  background: var(--a-blue-tint);
+  color: var(--color-brand);
+}
+
+.statLabel {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--a-muted);
+}
+
+.statValue {
+  font-size: 32px;
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.stat[data-accent] .statValue { color: var(--color-brand); }
+
+.statNote {
+  font-size: 12.5px;
+  color: var(--a-faint);
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 24px;
+  align-items: start;
+}
+
+.side {
+  display: grid;
+  gap: 24px;
+}
+
+/* ---------- Recent messages ---------- */
+
+.messages {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.messages li + li { border-top: 1px solid var(--a-line); }
+
+.message {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 22px;
+  color: var(--a-text);
+  transition: background-color .15s;
+}
+.message:hover { background: #FAFBFC; color: var(--a-text); }
+
+.avatar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--a-hover);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--a-muted);
+}
+
+.messageText {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+}
+
+.messageName {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.messageBusiness {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--a-faint);
+}
+
+.messagePreview {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  color: var(--a-muted);
+}
+
+.messageMeta {
+  display: grid;
+  justify-items: end;
+  gap: 4px;
+  flex: none;
+}
+
+.messageTime {
+  font-size: 12.5px;
+  color: var(--a-faint);
+  white-space: nowrap;
+}
+
+/* ---------- Side cards ---------- */
+
+.quick {
+  display: grid;
+  gap: 4px;
+  margin: -8px -10px;
+}
+
+.quickLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+  padding: 0 10px;
+  border-radius: 10px;
+  font-weight: 500;
+  color: var(--a-text);
+}
+.quickLink svg { color: var(--a-faint); }
+.quickLink:hover { background: var(--a-hover); color: var(--a-text); }
+.quickLink:hover svg { color: var(--color-brand); }
+
+.emailStatus {
+  display: flex;
+  gap: 14px;
+}
+.emailStatus .statIcon { margin: 0; }
+
+.emailText {
+  margin: 8px 0 10px;
+  font-size: 13px;
+  color: var(--a-muted);
+}
+
+.inlineLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+@media (max-width: 1180px) {
+  .columns { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 900px) {
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 520px) {
+  .stats { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .stat { padding: 16px; }
+  .statValue { font-size: 26px; }
+  .messageMeta { display: none; }
+}

@@ -1,0 +1,26 @@
+# Local development services: `docker compose up -d`
+# Production uses a hosted MongoDB (e.g. Atlas) via MONGODB_URI and your
+# real SMTP provider (configured in Admin → Settings → Email).
+name: enfinito
+
+services:
+  mongo:
+    image: mongo:8
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  # Catches every email the site sends, so nothing reaches real inboxes.
+  # Inbox: http://localhost:8025 · SMTP for the admin panel: host localhost,
+  # port 1025, security "None", no username or password.
+  mailpit:
+    image: axllent/mailpit:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:1025:1025"
+      - "127.0.0.1:8025:8025"
+
+volumes:
+  mongo-data:

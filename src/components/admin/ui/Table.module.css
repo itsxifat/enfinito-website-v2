@@ -1,0 +1,78 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--a-line);
+  background: var(--a-subtle);
+  font-size: 12px;
+  font-weight: 500;
+  text-align: left;
+  color: var(--a-muted);
+  white-space: nowrap;
+}
+.table th:first-child,
+.table td:first-child { padding-left: 22px; }
+.table th:last-child,
+.table td:last-child { padding-right: 22px; }
+
+.table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--a-line);
+  vertical-align: middle;
+}
+.table tbody tr:last-child td { border-bottom: 0; }
+.table tbody tr { transition: background-color .15s; }
+.table tbody tr:hover { background: #FAFBFC; }
+
+.primary {
+  font-weight: 500;
+  color: var(--a-text);
+}
+a.primary:hover { color: var(--color-brand); }
+
+.secondary {
+  font-size: 13px;
+  color: var(--a-muted);
+}
+
+.clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: 42ch;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.unread td:first-child { box-shadow: inset 3px 0 0 var(--color-brand); }
+.unread .primary { font-weight: 600; }
+
+.scroll { overflow-x: auto; }
+
+/* Stack rows as cards on narrow screens. */
+@media (max-width: 720px) {
+  .table thead { display: none; }
+  .table tr {
+    display: grid;
+    gap: 6px;
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--a-line);
+  }
+  .table td,
+  .table td:first-child,
+  .table td:last-child {
+    padding: 0;
+    border: 0;
+  }
+  .table .actions { justify-content: flex-start; }
+  .hideMobile { display: none; }
+}

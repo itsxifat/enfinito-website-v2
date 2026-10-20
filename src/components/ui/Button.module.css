@@ -1,0 +1,49 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  height: 54px;
+  padding: 0 32px;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-body);
+  font-weight: 500;
+  letter-spacing: var(--tracking-snug);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  /* Also used on <button>. */
+  border: 0;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Primary: blue pill; on hover a near-black wipe sweeps in from the left
+   with a soft, blurred leading edge. Light is the same pill in white, for
+   blue backgrounds; its text turns white as the wipe passes. */
+.primary { background-color: var(--color-brand); color: #fff; }
+.primary:hover { color: #fff; }
+.light {
+  background-color: #fff;
+  color: var(--color-ink);
+  transition: color .3s var(--ease-out) .12s;
+}
+.light:hover,
+.light:focus-visible { color: #fff; }
+.primary::before,
+.light::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  bottom: -20px;
+  left: -20px;
+  width: 250%;
+  z-index: -1;
+  background: linear-gradient(90deg, var(--color-ink) 0%, var(--color-ink) 55%, rgba(13, 17, 28, 0) 85%);
+  filter: blur(10px);
+  transform: translateX(-100%);
+  transition: transform .75s var(--ease-in-out);
+  pointer-events: none;
+}
+.primary:hover::before,
+.primary:focus-visible::before,
+.light:hover::before,
+.light:focus-visible::before { transform: translateX(0); }

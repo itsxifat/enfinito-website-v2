@@ -1,0 +1,72 @@
+.section {
+  padding: 0 var(--gutter) var(--section-space);
+}
+.section[data-spaced] { padding-top: var(--section-space); }
+
+/* A narrow label column beside a wide statement. */
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+  gap: 28px clamp(32px, 5vw, 96px);
+  align-items: start;
+}
+
+/* A quiet hairline pill, the same shape as the Careers label. */
+.eyebrow {
+  justify-self: start;
+  padding: 7px 14px;
+  border-radius: var(--radius-pill);
+  box-shadow: inset 0 0 0 1px var(--color-border);
+  font-size: 14px;
+  line-height: 1.4;
+  letter-spacing: var(--tracking-snug);
+  font-weight: 500;
+}
+
+.statement {
+  font-size: clamp(28px, 3.5vw, 56px);
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  font-weight: 500;
+  text-wrap: pretty;
+}
+.statement em {
+  font-style: normal;
+  color: var(--color-brand);
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px 48px;
+  margin-top: clamp(28px, 3.4vw, 48px);
+}
+
+.summary {
+  max-width: 34em;
+  font-size: 18px;
+  line-height: 1.6;
+  letter-spacing: var(--tracking-snug);
+  color: var(--color-ink-muted);
+}
+
+.more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-ink);
+  transition: color .2s;
+}
+.more svg { transition: transform .3s var(--ease-out); }
+.more:hover { color: var(--color-brand); }
+.more:hover svg { transform: translateX(3px); }
+
+.stats { margin-top: clamp(56px, 7vw, 104px); }
+
+@media (max-width: 859.98px) {
+  .grid { grid-template-columns: 1fr; }
+}

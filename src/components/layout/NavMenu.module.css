@@ -1,0 +1,136 @@
+/* Hangs from the header's bottom edge, just under the marker. The top
+   padding is an invisible bridge, so the pointer can travel from the item
+   into the card without closing it. */
+.menu {
+  position: absolute;
+  top: 100%;
+  /* --shift (set in NavMenu) keeps a wide menu inside the window. */
+  left: calc(-22px + var(--shift, 0px));
+  z-index: 20;
+  /* One 384px column per --cols, plus the card's padding. */
+  width: calc(var(--cols, 1) * 384px + 16px);
+  padding-top: 12px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition:
+    opacity .2s var(--ease-out),
+    transform .3s var(--ease-out),
+    visibility 0s linear .3s;
+}
+.menu[data-open] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity .3s var(--ease-out),
+    transform .45s var(--ease-out),
+    visibility 0s;
+}
+
+/* Frosted glass, like the panels on the home page. */
+.card {
+  padding: 8px;
+  border-radius: 20px;
+  background: rgb(255 255 255 / .86);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  backdrop-filter: blur(20px) saturate(1.6);
+  box-shadow:
+    0 0 0 1px rgb(13 17 28 / .06),
+    0 24px 60px -24px rgb(13 17 28 / .28);
+}
+
+/* Entries read down each column, then across. */
+.list {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(var(--cols, 1), minmax(0, 1fr));
+  grid-template-rows: repeat(var(--rows, 1), auto);
+  gap: 2px 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 12px 8px 8px;
+  border-radius: 14px;
+  color: var(--color-ink);
+  transition: background-color .2s var(--ease-out);
+}
+.link:hover,
+.link:focus-visible {
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+
+.thumb {
+  position: relative;
+  width: 72px;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 9px;
+  background: var(--color-surface);
+}
+.thumbImage { object-fit: cover; }
+
+.text {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.name {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: var(--tracking-snug);
+}
+
+.tagline {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  color: var(--color-ink-muted);
+}
+
+.arrow {
+  color: var(--color-ink-muted);
+  opacity: .45;
+  transition: opacity .2s, color .2s, translate .3s var(--ease-out);
+}
+.link:hover .arrow,
+.link:focus-visible .arrow {
+  opacity: 1;
+  color: var(--color-brand);
+  translate: 2px -1px;
+}
+
+.all {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 6px 4px 0;
+  padding: 12px 8px 6px;
+  border-top: 1px solid var(--color-line);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-ink);
+}
+.all svg { transition: translate .3s var(--ease-out); }
+.all:hover { color: var(--color-brand); }
+.all:hover svg { translate: 3px 0; }
+
+/* Phones and tablets use the full-screen menu instead. */
+@media (max-width: 859.98px) {
+  .menu { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu,
+  .menu[data-open] { transform: none; }
+}

@@ -1,0 +1,21 @@
+.fields {
+  display: grid;
+  gap: 22px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 180px;
+  gap: 16px;
+}
+
+/* The public card at a smaller scale. */
+.preview {
+  font-size: 14px;
+}
+.preview h2 { font-size: 19px !important; }
+.preview p { font-size: 14px !important; }
+
+@media (max-width: 720px) {
+  .row { grid-template-columns: 1fr; }
+}

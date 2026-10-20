@@ -1,0 +1,10 @@
+.fields {
+  display: grid;
+  gap: 22px;
+}
+
+/* The public design at a smaller scale. */
+.preview h2,
+.preview h3 { font-size: 24px !important; }
+.preview p { font-size: 13.5px !important; }
+.preview p:first-of-type { font-size: 15px !important; }

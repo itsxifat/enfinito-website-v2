@@ -1,0 +1,318 @@
+/* Sits over the top of every page; the first section on a page reserves
+   var(--header-h) for it. */
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  height: var(--header-h);
+  padding: 0 var(--gutter);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+  border-bottom: 1px solid transparent;
+  transition: border-color .3s var(--ease-out);
+}
+
+/* The bottom edge: a hairline that fades out toward both sides rather than
+   stopping hard at the edges of the page. */
+.header::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-border) 18%,
+    var(--color-border) 82%,
+    transparent
+  );
+  pointer-events: none;
+  transition: opacity .3s var(--ease-out);
+}
+
+/* A short blue marker riding on the hairline: under the hovered item, the
+   open menu's item or the current page. Positioned by SiteHeader (--x is
+   the left edge, --w the width in px). */
+.marker {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 1px;
+  height: 2px;
+  background: var(--color-brand);
+  transform: translateX(var(--x, 0)) scaleX(var(--w, 0));
+  transform-origin: 0 50%;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .55s var(--ease-out), opacity .3s var(--ease-out);
+}
+.marker[data-visible] { opacity: 1; }
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-self: start;
+}
+
+/* en-logo.png is 1648×376 with ~41px of transparent padding on each side.
+   33px tall renders the visible logo at 26px; the negative margin trims the
+   left padding so the logo's edge sits on the gutter. */
+.logoImage {
+  height: 33px;
+  width: auto;
+  margin-left: calc(33px * -41 / 376);
+}
+
+/* ---------- Desktop: inline nav ---------- */
+
+.panel {
+  grid-column: 2 / span 2;
+  justify-self: start;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(22px, 2.6vw, 40px);
+}
+
+/* An item with a dropdown (see NavMenu). It spans the header's height, so
+   the menu hangs from the hairline and the pointer never crosses a gap. */
+.navItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--header-h);
+}
+
+.navLink {
+  font-size: var(--text-nav);
+  font-weight: 500;
+  color: var(--color-ink);
+  transition: color .2s;
+}
+.navLink:hover,
+.navLink[aria-current="page"] { color: var(--color-brand); }
+
+/* Desktop: the dropdown's trigger, a button with a hairline chevron that
+   flips when the menu is open. The plain link is for the mobile menu. */
+.navTrigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+.navTrigger[aria-expanded="true"],
+.navTrigger[data-current] { color: var(--color-brand); }
+
+.chevron {
+  width: .9em;
+  height: .9em;
+  opacity: .5;
+  transition: transform .35s var(--ease-out), opacity .2s;
+}
+.navTrigger:hover .chevron { opacity: 1; }
+.navTrigger[aria-expanded="true"] .chevron {
+  opacity: 1;
+  transform: rotate(-180deg);
+}
+
+.navMobileLink { display: none; }
+
+/* Links to other sites carry a small arrow that nudges out on hover. */
+.navExternal {
+  display: inline-block;
+  width: .9em;
+  height: .9em;
+  margin-left: 2px;
+  vertical-align: -.05em;
+  opacity: .55;
+  transition: opacity .2s, translate .3s var(--ease-out);
+}
+.navLink:hover .navExternal {
+  opacity: 1;
+  translate: 1px -1px;
+}
+
+.panelFooter,
+.toggle { display: none; }
+
+/* ---------- Menu toggle ----------
+   Two hairlines, the lower one shorter. Opening, they meet in the middle and
+   then turn into a cross; closing plays the same steps in reverse. */
+
+.toggle {
+  position: relative;
+  justify-self: end;
+  width: 44px;
+  height: 44px;
+  margin-right: -11px; /* align the lines, not the hit area, with the gutter */
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.toggleLine {
+  position: absolute;
+  right: 11px;
+  height: 1.5px;
+  border-radius: 1px;
+  background: var(--color-ink);
+  transition:
+    translate .22s var(--ease-out) .16s,
+    rotate .22s var(--ease-out),
+    width .3s var(--ease-out);
+}
+.toggleLine:first-child { top: 18.25px; width: 22px; }
+.toggleLine:last-child { top: 24.25px; width: 14px; }
+
+@media (hover: hover) {
+  .toggle:hover .toggleLine:last-child { width: 22px; }
+}
+
+.header[data-open] .toggleLine {
+  transition:
+    translate .22s var(--ease-out),
+    rotate .32s var(--ease-out) .16s,
+    width .3s var(--ease-out);
+}
+.header[data-open] .toggleLine:first-child { translate: 0 3px; rotate: 45deg; }
+.header[data-open] .toggleLine:last-child { translate: 0 -3px; rotate: -45deg; width: 22px; }
+
+/* ---------- Mobile: full-screen menu ---------- */
+
+@media (max-width: 859.98px) {
+  .header { grid-template-columns: 1fr auto; }
+  .header[data-open] { border-bottom-color: var(--color-line); }
+  .header[data-open]::before { opacity: 0; }
+  .marker { display: none; }
+
+  .toggle { display: block; }
+
+  /* Auto placement makes the header's padding box the containing block. */
+  .panel {
+    grid-column: auto;
+    justify-self: stretch;
+    position: absolute;
+    top: calc(100% + 1px);
+    left: 0;
+    right: 0;
+    height: calc(100vh - var(--header-h));
+    height: calc(100svh - var(--header-h));
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 16px var(--gutter) 24px;
+    background: var(--color-bg);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .25s var(--ease-out), visibility 0s linear .25s;
+  }
+  .header[data-open] .panel {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .3s var(--ease-out);
+  }
+
+  .nav {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  /* Items rise in one after another; their hairlines draw in from the left. */
+  .navLink {
+    --delay: calc(60ms + var(--i) * 45ms);
+    position: relative;
+    display: block;
+    padding: 20px 0 18px;
+    font-size: clamp(32px, 9.6vw, 44px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity .2s var(--ease-out), transform .2s var(--ease-out), color .2s;
+  }
+  .navLink::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--color-line);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .2s var(--ease-out);
+  }
+  .navLink:hover { color: var(--color-ink); }
+  .navLink[aria-current="page"] { color: var(--color-brand); }
+  .navItem {
+    display: block;
+    height: auto;
+  }
+  .navTrigger { display: none; }
+  .navMobileLink { display: block; }
+  .navExternal {
+    width: .55em;
+    height: .55em;
+    margin-left: 4px;
+    vertical-align: .3em;
+  }
+
+  .header[data-open] .navLink {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity .5s var(--ease-out) var(--delay),
+      transform .7s var(--ease-out) var(--delay),
+      color .2s;
+  }
+  .header[data-open] .navLink::after {
+    transform: scaleX(1);
+    transition: transform .9s var(--ease-out) var(--delay);
+  }
+
+  .panelFooter {
+    --delay: calc(60ms + var(--i) * 45ms);
+    display: block;
+    margin-top: auto;
+    padding-top: 32px;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity .2s var(--ease-out), transform .2s var(--ease-out);
+  }
+  .header[data-open] .panelFooter {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity .5s var(--ease-out) var(--delay),
+      transform .7s var(--ease-out) var(--delay);
+  }
+
+  .panelCta {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marker { transition: opacity .3s var(--ease-out); }
+  .toggleLine,
+  .header[data-open] .toggleLine { transition: none; }
+  .navLink,
+  .panelFooter { transform: none !important; }
+  .navLink::after { transform: none !important; }
+}

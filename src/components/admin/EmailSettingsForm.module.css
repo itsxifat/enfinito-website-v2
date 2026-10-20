@@ -1,0 +1,28 @@
+.form {
+  display: grid;
+  gap: 24px;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.preview {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+.test {
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+}
+.test > * { width: 100%; }
+.test > button { width: auto; }

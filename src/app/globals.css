@@ -1,0 +1,114 @@
+/* Enfinito design tokens — the single source of truth for the visual language.
+   White canvas, near-black ink, one blue accent, Geist throughout. */
+
+:root {
+  /* Color */
+  --color-bg: #fff;
+  --color-ink: #0D111C;
+  --color-ink-muted: #5A6172;
+  --color-brand: #1F55DF;
+  --color-brand-hover: #1A47BD;
+  --color-line: #EEF0F4;
+  --color-border: #D9DCE4;
+  --color-surface: #F3F5F8;
+
+  /* Type */
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  --text-display: clamp(40px, 7vw, 116px);
+  --text-h2: clamp(32px, 4.2vw, 64px);
+  --text-lead: clamp(17px, 1.5vw, 22px);
+  --text-body: 16px;
+  --text-nav: 15px;
+  --tracking-display: -0.045em;
+  --tracking-tight: -0.035em;
+  --tracking-snug: -0.01em;
+
+  /* Layout */
+  --gutter: clamp(20px, 3.4vw, 56px);
+  --section-space: clamp(88px, 11vw, 168px);
+  --header-h: 88px;
+  --radius-control: 10px;
+  --radius-pill: 999px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --ease-in-out: cubic-bezier(.65, 0, .35, 1);
+}
+
+/* ---------- Base ---------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body { margin: 0; background: var(--color-bg); }
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, p { margin: 0; }
+
+img, svg { display: block; }
+
+a { color: var(--color-brand); text-decoration: none; }
+a:hover { color: var(--color-brand-hover); }
+
+button { font: inherit; color: inherit; }
+
+:focus-visible { outline: 2px solid var(--color-brand); outline-offset: 3px; }
+
+::selection { background: rgba(31, 85, 223, .14); }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: 12px;
+  left: var(--gutter);
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--color-ink);
+  color: #fff;
+  font-size: var(--text-nav);
+  font-weight: 500;
+  transform: translateY(-200%);
+}
+.skip-link:focus { transform: none; color: #fff; }
+
+/* ---------- Scroll reveal ----------
+   Elements marked data-reveal rise into place the first time they scroll
+   into view. ScrollReveal turns this on (data-reveal-on) and plays the
+   animation; this only sets the hidden starting state. `data-reveal="block"`
+   skips the blur, for large images and cards. Set --reveal-i to stagger
+   items in a group. */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-reveal-on] [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(6px);
+  }
+  html[data-reveal-on] [data-reveal="block"] { filter: none; }
+}
+
+/* Never leave content hidden on paper. */
+@media print {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}

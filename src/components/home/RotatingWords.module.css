@@ -1,0 +1,48 @@
+/* Words share one grid cell, so the box is always as wide as the longest word
+   and the line never reflows. The incoming word rises and un-blurs; the
+   outgoing one lifts away; the rest wait below with no transition. */
+
+.rotator {
+  display: inline-grid;
+  vertical-align: top;
+}
+
+/* On phones the keyword always gets its own line, so the break never
+   depends on which word is showing. */
+@media (max-width: 640px) {
+  .rotator { display: grid; }
+}
+
+.word {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  color: var(--color-brand);
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(.55em);
+  filter: blur(6px);
+  transition: none;
+}
+
+.word[data-state="active"] {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+  transition:
+    opacity 600ms var(--ease-out) 120ms,
+    transform 750ms var(--ease-out) 80ms,
+    filter 600ms var(--ease-out) 80ms;
+}
+
+.word[data-state="leaving"] {
+  transform: translateY(-.55em);
+  transition:
+    opacity 420ms var(--ease-out),
+    transform 600ms var(--ease-out),
+    filter 420ms var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word,
+  .word[data-state="leaving"] { transform: none; filter: none; }
+}

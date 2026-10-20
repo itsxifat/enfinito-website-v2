@@ -1,0 +1,111 @@
+.page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  min-height: 100vh;
+  min-height: 100svh;
+  background: var(--a-surface);
+}
+
+/* ---------- Form ---------- */
+
+.formSide {
+  display: grid;
+  place-items: center;
+  padding: 48px 24px;
+}
+
+.formWrap {
+  width: 100%;
+  max-width: 380px;
+}
+
+.logo {
+  height: 34px;
+  width: auto;
+  margin: 0 0 48px calc(34px * -41 / 376);
+}
+
+.title {
+  font-size: 32px;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  font-weight: 600;
+}
+
+.subtitle {
+  margin: 10px 0 32px;
+  font-size: 15px;
+  color: var(--a-muted);
+}
+
+.footnote {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 28px;
+  font-size: 13px;
+  color: var(--a-faint);
+}
+
+/* ---------- Art panel ---------- */
+
+.art {
+  position: relative;
+  overflow: hidden;
+  margin: 12px 12px 12px 0;
+  border-radius: 28px;
+  background:
+    radial-gradient(120% 80% at 85% 10%, #DCE6FD 0%, rgba(220, 230, 253, 0) 60%),
+    radial-gradient(90% 70% at 10% 100%, #E7EDFD 0%, rgba(231, 237, 253, 0) 60%),
+    #F3F6FE;
+}
+
+/* Hairline grid, echoing the site's three-column layout. */
+.art::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(31, 85, 223, .07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(31, 85, 223, .07) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(80% 70% at 60% 40%, #000, transparent);
+}
+
+.mark {
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  width: 78%;
+  height: auto;
+  aspect-ratio: 1637 / 1234;
+  transform: translate(-50%, -58%);
+}
+
+.caption {
+  position: absolute;
+  left: 48px;
+  right: 48px;
+  bottom: 44px;
+  display: grid;
+  gap: 6px;
+}
+
+.captionTitle {
+  font-size: 22px;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  color: var(--a-text);
+}
+
+.captionText {
+  max-width: 36ch;
+  font-size: 14.5px;
+  color: var(--a-muted);
+}
+
+@media (max-width: 959.98px) {
+  .page { grid-template-columns: 1fr; }
+  .art { display: none; }
+}

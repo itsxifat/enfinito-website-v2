@@ -1,0 +1,41 @@
+/* Shared layout for the single-page settings editors (About, Footer). */
+
+.form {
+  display: grid;
+  gap: 24px;
+  max-width: 880px;
+}
+
+.stack {
+  display: grid;
+  gap: 20px;
+}
+
+/* Fields above a card's list of rows. */
+.cardTop {
+  padding: 20px 22px;
+  border-bottom: 1px solid var(--a-line);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.view {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+/* For text written in markup (the legal pages). */
+.code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13.5px;
+  line-height: 1.65;
+}

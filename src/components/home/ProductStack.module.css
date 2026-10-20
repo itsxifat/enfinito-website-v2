@@ -1,0 +1,157 @@
+.stack {
+  display: grid;
+  gap: clamp(16px, 2vw, 28px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Sticky only where a whole card fits on screen, so no card is ever
+   covered before it has been seen. Each card stops a little lower than the
+   one before, leaving its edge showing above the next. */
+@media (min-height: 700px) {
+  .item {
+    position: sticky;
+    top: calc(clamp(16px, 3vh, 32px) + var(--i) * 14px);
+  }
+}
+
+.card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(28px, 4vw, 72px);
+  height: clamp(440px, 66vh, 600px);
+  padding: clamp(24px, 3vw, 44px);
+  border-radius: clamp(24px, 2.6vw, 36px);
+  background: var(--color-surface);
+  box-shadow:
+    inset 0 0 0 1px rgb(13 17 28 / .04),
+    0 -18px 40px -24px rgb(13 17 28 / .18);
+  color: var(--color-ink);
+  transform: scale(calc(1 - var(--cover, 0) * .05));
+  transform-origin: 50% 0;
+}
+.card:hover { color: var(--color-ink); }
+
+/* Covered cards dim slightly as the next one slides over them. */
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--color-ink);
+  opacity: calc(var(--cover, 0) * .08);
+  pointer-events: none;
+}
+
+/* Name and tagline at the top; description and link at the bottom. */
+.text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+  min-width: 0;
+  padding: clamp(4px, .8vw, 12px) 0;
+}
+
+.heading {
+  display: grid;
+  gap: 14px;
+}
+
+.name {
+  font-size: clamp(38px, 4.4vw, 72px);
+  line-height: .98;
+  letter-spacing: var(--tracking-display);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.tagline {
+  font-size: clamp(18px, 1.5vw, 22px);
+  line-height: 1.35;
+  letter-spacing: var(--tracking-snug);
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.footer {
+  display: grid;
+  justify-items: start;
+  gap: 22px;
+}
+
+.description {
+  max-width: 40ch;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--color-ink-muted);
+  overflow-wrap: anywhere;
+}
+
+.visit {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 48px;
+  padding: 0 22px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand);
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  transition: background-color .3s var(--ease-out);
+}
+.visit svg { transition: transform .3s var(--ease-out); }
+a.card:hover .visit { background: var(--color-ink); }
+a.card:hover .visit svg { transform: translate(2px, -2px); }
+
+.media {
+  position: relative;
+  overflow: hidden;
+  border-radius: clamp(16px, 1.8vw, 24px);
+  background: #fff;
+}
+/* Hairline frame, so pale banners keep their edge on the grey card. */
+.media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgb(13 17 28 / .07);
+  pointer-events: none;
+}
+
+.image {
+  object-fit: cover;
+  transition: transform 1.2s var(--ease-out);
+}
+a.card:hover .image { transform: scale(1.03); }
+
+/* Phones and small tablets: banner on top, copy below. */
+@media (max-width: 859.98px) {
+  .card {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 24px;
+    height: auto;
+    padding: 12px 12px 24px;
+  }
+  .media {
+    order: -1;
+    aspect-ratio: 16 / 10;
+  }
+  .text {
+    gap: 20px;
+    padding: 0 12px;
+  }
+  .heading { gap: 8px; }
+  .name { font-size: clamp(32px, 9vw, 44px); }
+  .description { font-size: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image { transition: none; }
+  a.card:hover .image { transform: none; }
+}

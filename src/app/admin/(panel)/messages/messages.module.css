@@ -1,0 +1,72 @@
+.tabs {
+  display: inline-flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  padding: 4px;
+  border: 1px solid var(--a-border);
+  border-radius: 12px;
+  background: var(--a-surface);
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 8px;
+  font-weight: 500;
+  color: var(--a-muted);
+}
+.tab:hover { background: var(--a-hover); color: var(--a-text); }
+.tab[aria-current="page"] { background: var(--a-text); color: #fff; }
+
+.tabCount {
+  min-width: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: rgba(13, 17, 28, .06);
+  font-size: 12px;
+  text-align: center;
+}
+.tab[aria-current="page"] .tabCount { background: rgba(255, 255, 255, .18); }
+
+/* The name link covers the whole row. */
+.row { position: relative; }
+.stretch::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.preview { color: var(--a-text); }
+
+.received {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.range {
+  font-size: 13px;
+  color: var(--a-muted);
+}
+
+.pager {
+  display: flex;
+  gap: 8px;
+}
+
+@media (max-width: 720px) {
+  .received { justify-content: flex-start; }
+}

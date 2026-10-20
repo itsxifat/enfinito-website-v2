@@ -1,0 +1,98 @@
+.section {
+  padding: var(--section-space) 0;
+}
+
+.title {
+  padding: 0 var(--gutter);
+  font-size: var(--text-h2);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+/* ---------- Marquee ----------
+   A hairline-framed band; logos and lines fade out toward both edges. */
+
+.marquee {
+  margin-top: clamp(40px, 5vw, 72px);
+  border-top: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-line);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: marquee calc(var(--count) * 3.5s) linear infinite;
+}
+.marquee:hover .track,
+.marquee:focus-within .track { animation-play-state: paused; }
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* Each set is at least a viewport wide, so even a handful of logos loops
+   without a gap. The trailing padding matches the gap between logos. */
+.set {
+  --gap: clamp(56px, 6vw, 104px);
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-around;
+  gap: var(--gap);
+  min-width: 100vw;
+  height: clamp(104px, 10vw, 148px);
+  margin: 0;
+  padding: 0 var(--gap) 0 0;
+  list-style: none;
+}
+
+.item a { display: block; }
+
+/* Muted and monochrome at rest; true colour on hover. */
+.logo {
+  display: block;
+  width: var(--w);
+  height: var(--h);
+  filter: grayscale(1);
+  opacity: .5;
+  transition: filter .5s var(--ease-out), opacity .5s var(--ease-out);
+}
+.item:hover .logo,
+.item a:focus-visible .logo {
+  filter: none;
+  opacity: 1;
+}
+
+@media (max-width: 640px) {
+  .logo {
+    width: calc(var(--w) * .8);
+    height: calc(var(--h) * .8);
+  }
+}
+
+/* No motion: a still, centred, wrapping grid of the logos. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .track {
+    width: auto;
+    animation: none;
+  }
+  .set {
+    flex-wrap: wrap;
+    justify-content: center;
+    min-width: 0;
+    width: 100%;
+    height: auto;
+    padding: 40px var(--gutter);
+    row-gap: 40px;
+  }
+  .set[aria-hidden] { display: none; }
+}

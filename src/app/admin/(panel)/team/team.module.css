@@ -1,0 +1,31 @@
+.member {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--a-hover);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--a-muted);
+}
+
+.memberText {
+  display: grid;
+  min-width: 0;
+}
+
+.you {
+  font-weight: 400;
+  color: var(--a-faint);
+}
+
+.note { color: var(--a-muted); }

@@ -1,0 +1,4 @@
+.section {
+  padding: 0 var(--gutter) var(--section-space);
+}
+.section[data-spaced] { padding-top: var(--section-space); }
